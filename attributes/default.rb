@@ -5,6 +5,7 @@ when "debian"
   default['varnish']['daemon_config'] = "/etc/default/varnish"
 end
 
+default['varnish']['vcl_template'] = 'default.vcl.erb'
 default['varnish']['config_dir'] = "/etc/varnish"
 default['varnish']['VARNISH_VCL_CONF'] = "/etc/varnish/default.vcl"
 default['varnish']['VARNISH_LISTEN_PORT'] = 6081

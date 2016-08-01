@@ -69,8 +69,8 @@ if node['varnish']['GeoIP_enabled']
   include_recipe 'chef-varnish::geoip'
 end
 
-template "#{node['varnish']['config_dir']}/default.vcl" do
-  source 'default.vcl.erb'
+template node['varnish']['VARNISH_VCL_CONF'] do
+  source node['varnish']['vcl_template']
   owner 'root'
   group 'root'
   mode 0644
@@ -98,4 +98,3 @@ service 'varnishlog' do
   supports :restart => true, :reload => true
   action [ :enable, :start ]
 end
-
