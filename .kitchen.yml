@@ -15,3 +15,5 @@ suites:
     run_list:
       - recipe[chef-varnish::default]
     attributes:
+      varnish:
+        version: 4.1.3

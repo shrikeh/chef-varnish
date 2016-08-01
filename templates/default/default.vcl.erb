@@ -1,13 +1,17 @@
 # This is a basic VCL configuration file for varnish.  See the vcl(7)
 # man page for details on VCL syntax and semantics.
 
+<% if Gem::Version.new(node['varnish']['version']) >= Gem::Version.new(4) %>
+ vcl 4.0;
+<% end %>
+
 <% if node['varnish']['GeoIP_enabled'] %>
 include "/etc/varnish/geoip.vcl";
 <% end %>
 
 # Default backend definition.  Set this to point to your content
 # server.
-# 
+#
 backend default {
   .host = "<%= @params[:VARNISH_BACKEND_ADDRESS] %>";
   .port = "<%= @params[:VARNISH_BACKEND_PORT] %>";
@@ -52,7 +56,7 @@ backend default {
 #     }
 #     return (lookup);
 # }
-# 
+#
 # sub vcl_pipe {
 #     # Note that only the first request to the backend will have
 #     # X-Forwarded-For set.  If you use X-Forwarded-For and want to
@@ -62,11 +66,11 @@ backend default {
 #     # applications, like IIS with NTLM authentication.
 #     return (pipe);
 # }
-# 
+#
 # sub vcl_pass {
 #     return (pass);
 # }
-# 
+#
 # sub vcl_hash {
 #     hash_data(req.url);
 #     if (req.http.host) {
@@ -79,15 +83,15 @@ backend default {
 #     <% end %>
 #     return (hash);
 # }
-# 
+#
 # sub vcl_hit {
 #     return (deliver);
 # }
-# 
+#
 # sub vcl_miss {
 #     return (fetch);
 # }
-# 
+#
 # sub vcl_fetch {
 #     if (beresp.ttl <= 0s ||
 #         beresp.http.Set-Cookie ||
@@ -100,11 +104,11 @@ backend default {
 #     }
 #     return (deliver);
 # }
-# 
+#
 # sub vcl_deliver {
 #     return (deliver);
 # }
-# 
+#
 # sub vcl_error {
 #     set obj.http.Content-Type = "text/html; charset=utf-8";
 #     set obj.http.Retry-After = "5";
@@ -128,11 +132,11 @@ backend default {
 # "};
 #     return (deliver);
 # }
-# 
+#
 # sub vcl_init {
 # 	return (ok);
 # }
-# 
+#
 # sub vcl_fini {
 # 	return (ok);
 # }

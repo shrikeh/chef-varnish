@@ -17,9 +17,9 @@ Then /^I should see ping$/ do
 end
 
 When /^the service status is requested$/ do
-  @status = `sudo service varnish status`
+  @status = `pgrep varnish`
 end
 
 Then /^it should be running$/ do
-  expect(@status).to match(/running/)
+  expect(@status).to match(/\d+/)
 end
